@@ -1,0 +1,73 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: |
+        cd backend && npm install
+        cd ../frontend && npm install
+    
+    - name: Run backend tests
+      run: |
+        cd backend
+        npm run test --if-present
+    
+    - name: Run frontend tests
+      run: |
+        cd frontend
+        npm run test --if-present
+    
+    - name: Build backend
+      run: |
+        cd backend
+        npm run build
+    
+    - name: Build frontend
+      run: |
+        cd frontend
+        npm run build
+    
+    - name: Lint backend
+      run: |
+        cd backend
+        npm run lint --if-present
+    
+    - name: Lint frontend
+      run: |
+        cd frontend
+        npm run lint --if-present
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Build Docker image
+      run: docker build -t rbe-platform .
+    
+    - name: Test Docker container
+      run: |
+        docker run -d --name test-container -p 3000:3000 rbe-platform
+        sleep 10
+        curl -f http://localhost:3000/ || exit 1
+        docker stop test-container
+        docker rm test-container
