@@ -3,7 +3,7 @@ FROM node:20-alpine AS backend-builder
 
 WORKDIR /app/backend
 COPY backend/package.json ./
-RUN npm install --production
+RUN npm install
 COPY backend .
 RUN npm run build
 
@@ -27,8 +27,8 @@ RUN npm install --production
 COPY --from=backend-builder /app/backend/dist ./dist
 COPY --from=backend-builder /app/backend/package.json ./
 
-# Install nginx for frontend
-RUN apk add --no-cache nginx
+# Install nginx and wget for frontend and healthcheck
+RUN apk add --no-cache nginx wget
 
 # Copy built frontend
 COPY --from=frontend-builder /app/frontend/dist /usr/share/nginx/html
