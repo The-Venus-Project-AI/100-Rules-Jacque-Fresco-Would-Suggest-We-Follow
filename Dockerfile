@@ -33,6 +33,9 @@ RUN apk add --no-cache nginx wget
 # Copy built frontend
 COPY --from=frontend-builder /app/frontend/dist /usr/share/nginx/html
 
+# Debug: List frontend files
+RUN ls -la /usr/share/nginx/html/
+
 # Copy nginx config
 COPY nginx.conf /etc/nginx/nginx.conf
 
