@@ -39,7 +39,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Create startup script
 RUN echo '#!/bin/sh' > /app/start.sh && \
     echo 'nginx &' >> /app/start.sh && \
-    echo 'node dist/index.js' >> /app/start.sh && \
+    echo 'PORT=3001 node dist/index.js' >> /app/start.sh && \
     chmod +x /app/start.sh
 
 EXPOSE 3000
