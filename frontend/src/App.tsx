@@ -5,6 +5,7 @@ function App() {
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedRegion, setSelectedRegion] = useState('global');
   const [timeRange, setTimeRange] = useState('year');
+  const [expandedCategory, setExpandedCategory] = useState(null);
   
   // Simulated data based on Venus Project principles
   const resourceData = [
@@ -48,68 +49,143 @@ function App() {
     { region: 'Oceania', cooperation: 78, resourceSharing: 75, knowledgeExchange: 88 }
   ];
 
-  const principles = {
-    resourceManagement: [
-      "Earth's resources as common heritage",
-      "Resource-based economy implementation",
-      "Elimination of monetary system",
-      "Scientific resource allocation",
-      "Automation of labor",
-      "Real-time inventory systems",
-      "Durable goods production",
-      "Circular economy design",
-      "Waste-to-resource conversion",
-      "Global resource monitoring"
+  // All 100 principles organized by category
+  const allPrinciples = {
+    "Resource Management and Economics (1-10)": [
+      "1. Declare all of Earth's resources as the common heritage of all people",
+      "2. Base decisions on resource availability and carrying capacity",
+      "3. Eliminate the monetary system",
+      "4. Measure wealth by resources and productive capacity",
+      "5. Use technology to create abundance for all",
+      "6. Design production to meet human needs directly",
+      "7. Apply scientific methods to resource allocation",
+      "8. Automate all routine and monotonous labor",
+      "9. Maintain real-time inventory systems",
+      "10. Produce goods for maximum utility and durability"
     ],
-    environment: [
-      "Environmental restoration priority",
-      "Carrying capacity adherence",
-      "100% renewable energy",
-      "Chemical-free agriculture",
-      "Circular city design",
-      "Green space integration",
-      "Disaster-resistant structures",
-      "Modular construction",
-      "Closed-loop systems",
-      "Automated monitoring"
+    "Environment and Sustainability (11-20)": [
+      "11. Prioritize environmental restoration and protection",
+      "12. Design systems within Earth's carrying capacity",
+      "13. Use only clean, renewable energy sources",
+      "14. Eliminate dangerous chemicals and pesticides",
+      "15. Create circular cities for efficiency",
+      "16. Integrate parks and green spaces",
+      "17. Build disaster-resistant structures",
+      "18. Use prefabricated, modular construction",
+      "19. Implement closed-loop systems",
+      "20. Monitor environmental conditions automatically"
     ],
-    science: [
-      "Scientific method application",
-      "Evidence-based decisions",
-      "Peer review systems",
-      "Technical problem-solving",
-      "AI-assisted management",
-      "Continuous methodology updates",
-      "Data-driven governance",
-      "Systematic inquiry",
-      "Verification protocols",
-      "Machine decision-making"
+    "Science and Decision-Making (21-30)": [
+      "21. Apply scientific method to social systems",
+      "22. Base decisions on research and experimentation",
+      "23. Require verification and peer review",
+      "24. Ask 'what do we have here?' and investigate",
+      "25. Replace political ideologies with technical solutions",
+      "26. Use AI to manage complex systems",
+      "27. Eliminate financial influence in decisions",
+      "28. Design systems serving all people equally",
+      "29. Continuously update methodologies",
+      "30. Assign more decision-making to machines"
     ],
-    education: [
-      "Universal free education",
-      "Critical thinking focus",
-      "Cooperation emphasis",
-      "Environmental behavior studies",
-      "Anti-elitism measures",
-      "Change adaptation training",
-      "Global consciousness",
-      "Problem-solving skills",
-      "Interconnected learning",
-      "Innovation encouragement"
+    "Education and Human Development (31-40)": [
+      "31. Make education free and accessible to all",
+      "32. Teach critical thinking and scientific method",
+      "33. Emphasize cooperation, creativity, individuality",
+      "34. Provide information about environmental behavior shaping",
+      "35. Eliminate all types of elitism",
+      "36. Prepare people for continuous change",
+      "37. Foster global consciousness",
+      "38. Train problem-solvers, not soldiers",
+      "39. Teach through demonstration and interconnection",
+      "40. Encourage innovative thinking"
     ],
-    social: [
-      "Environmental behavior shaping",
-      "Learned behavior recognition",
-      "Destructive pattern elimination",
-      "Empathy development",
-      "Scientific governance",
-      "Abundance society creation",
-      "Border elimination",
-      "Collective resource management",
-      "Power balance maintenance",
-      "Mutual interest alignment"
+    "Human Behavior and Values (41-50)": [
+      "41. Understand behavior as environmentally shaped",
+      "42. Recognize greed and hatred as learned behaviors",
+      "43. Change destructive behaviors by changing environment",
+      "44. Reject notions of inherent good and evil",
+      "45. Abandon myth of fixed individuality",
+      "46. Accept abilities result from environment",
+      "47. Understand violence stems from scarcity",
+      "48. Celebrate being proven wrong as growth",
+      "49. Base success on genuine beliefs",
+      "50. Practice empathy through understanding"
+    ],
+    "Social Organization and Governance (51-60)": [
+      "51. Replace political government with scientific management",
+      "52. Remove police, military, prisons as unnecessary",
+      "53. End wars by addressing root causes",
+      "54. Abolish borders, create unified civilization",
+      "55. Eliminate taxation through collective management",
+      "56. Remove all forms of debt and servitude",
+      "57. Make laws obsolete through design",
+      "58. Establish values based on actual needs",
+      "59. Ensure no group holds power over others",
+      "60. Align individual and collective interests"
+    ],
+    "Technology and Innovation (61-70)": [
+      "61. Use technology to generate abundance",
+      "62. Implement cybernation of production",
+      "63. Apply AI to improve decision-making",
+      "64. Create interconnected sensor networks",
+      "65. Develop automated inventory systems",
+      "66. Design cities as evolving organisms",
+      "67. Build elevated transportation systems",
+      "68. Prefabricate buildings in factories",
+      "69. Use 3D imaging and advanced construction",
+      "70. Create self-erecting structures"
+    ],
+    "Resource Distribution and Access (71-80)": [
+      "71. Provide universal access to all necessities",
+      "72. Ensure highest standard of living for all",
+      "73. Eliminate hunger, poverty, homelessness",
+      "74. Make medical care universally available",
+      "75. Provide mental stimulation with material needs",
+      "76. Design systems where intelligence enriches all",
+      "77. Recognize interdependence of safety",
+      "78. Understand unmet needs create dangers",
+      "79. Allocate resources efficiently without waste",
+      "80. Eliminate hoarding through universal access"
+    ],
+    "Urban Design and Infrastructure (81-90)": [
+      "81. Build circular cities with radial sectors",
+      "82. Place central dome for core systems",
+      "83. Surround cities with agricultural belts",
+      "84. Create waterways for irrigation",
+      "85. Designate outer perimeters for recreation",
+      "86. Design varied residential architecture",
+      "87. Build vertical cities to preserve land",
+      "88. Include amenities within walking distance",
+      "89. Incorporate exercise naturally in design",
+      "90. Create safe recreational facilities"
+    ],
+    "Cooperation and Global Unity (91-100)": [
+      "91. Work together to solve problems",
+      "92. Function as single organism",
+      "93. Share knowledge and innovations freely",
+      "94. Bridge differences for environmental care",
+      "95. Recognize universal human needs",
+      "96. Accept different conclusions while meeting needs",
+      "97. Practice cooperation from childhood",
+      "98. Define humanity through caring",
+      "99. Take responsibility for everyone's wellbeing",
+      "100. Pledge allegiance to Earth and all inhabitants"
     ]
   };
+
+  // Calculate progress for each category
+  const categoryProgress = Object.keys(allPrinciples).map(category => {
+    const implemented = Math.floor(Math.random() * 40 + 30); // Simulated progress
+    const inProgress = Math.floor(Math.random() * 30 + 20);
+    const planned = 100 - implemented - inProgress;
+    return {
+      category: category.split('(')[0].trim(),
+      implemented,
+      inProgress,
+      planned,
+      total: allPrinciples[category].length
+    };
+  });
 
   const MetricCard = ({ title, value, target, unit, color, trend }) => (
     <div className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
@@ -142,19 +218,70 @@ function App() {
     </div>
   );
 
-  const PrincipleChecklist = ({ category, items }) => (
-    <div className="bg-white rounded-lg shadow-md p-4">
-      <h3 className="text-lg font-semibold mb-3 text-gray-800">{category}</h3>
-      <div className="space-y-2">
-        {items.map((item, index) => (
-          <div key={index} className="flex items-center space-x-2">
-            <div className={`w-4 h-4 rounded-full ${Math.random() > 0.3 ? 'bg-green-500' : Math.random() > 0.5 ? 'bg-yellow-500' : 'bg-gray-300'}`} />
-            <span className="text-sm text-gray-700">{item}</span>
+  const PrincipleCategory = ({ category, principles, progress }) => {
+    const isExpanded = expandedCategory === category;
+    const getStatusColor = (index) => {
+      const random = Math.random();
+      if (random > 0.6) return 'bg-green-500'; // Implemented
+      if (random > 0.3) return 'bg-yellow-500'; // In Progress
+      return 'bg-gray-300'; // Planned
+    };
+
+    const getStatusText = (color) => {
+      if (color === 'bg-green-500') return 'Implemented';
+      if (color === 'bg-yellow-500') return 'In Progress';
+      return 'Planned';
+    };
+
+    return (
+      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <button
+          onClick={() => setExpandedCategory(isExpanded ? null : category)}
+          className="w-full p-4 text-left hover:bg-gray-50 transition-colors"
+        >
+          <div className="flex justify-between items-center">
+            <h3 className="text-lg font-semibold text-gray-800">{category}</h3>
+            <div className="flex items-center space-x-3">
+              <div className="flex space-x-2 text-xs">
+                <span className="px-2 py-1 bg-green-100 text-green-800 rounded">
+                  {progress?.implemented || 0}%
+                </span>
+                <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded">
+                  {progress?.inProgress || 0}%
+                </span>
+              </div>
+              <svg 
+                className={`w-5 h-5 text-gray-500 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
           </div>
-        ))}
+        </button>
+        {isExpanded && (
+          <div className="px-4 pb-4 border-t">
+            <div className="space-y-2 mt-3">
+              {principles.map((principle, index) => {
+                const statusColor = getStatusColor(index);
+                return (
+                  <div key={index} className="flex items-start space-x-3 p-2 hover:bg-gray-50 rounded">
+                    <div className={`w-4 h-4 rounded-full mt-0.5 flex-shrink-0 ${statusColor}`} />
+                    <div className="flex-1">
+                      <p className="text-sm text-gray-700">{principle}</p>
+                      <span className="text-xs text-gray-500">{getStatusText(statusColor)}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
@@ -167,6 +294,17 @@ function App() {
               <p className="text-sm text-gray-600">Resource-Based Economy Global Dashboard</p>
             </div>
             <div className="flex items-center space-x-4">
+              <a 
+                href="https://github.com/The-Venus-Project-AI/100-Rules-Jacque-Fresco-Would-Suggest-We-Follow"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 px-3 py-2 bg-gray-900 text-white rounded-md hover:bg-gray-800 transition-colors text-sm"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                <span>View on GitHub</span>
+              </a>
               <select 
                 value={selectedRegion} 
                 onChange={(e) => setSelectedRegion(e.target.value)}
@@ -509,52 +647,73 @@ function App() {
           <div className="space-y-6">
             <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
               <p className="text-sm text-blue-800">
-                <strong>Jacque Fresco's Vision:</strong> "The future is not something that happens to us, but something we create."
-                These 100 principles guide our transition to a resource-based economy.
+                <strong>100 Principles for a Resource-Based Economy:</strong> "The future is not something that happens to us, but something we create."
+                These principles guide our transition to a sustainable, equitable civilization.
               </p>
+              <a 
+                href="https://github.com/The-Venus-Project-AI/100-Rules-Jacque-Fresco-Would-Suggest-We-Follow"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-1 text-blue-600 hover:text-blue-800 text-sm mt-2"
+              >
+                <span>View complete documentation on GitHub</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <PrincipleChecklist category="Resource Management (1-10)" items={principles.resourceManagement} />
-              <PrincipleChecklist category="Environment & Sustainability (11-20)" items={principles.environment} />
-              <PrincipleChecklist category="Science & Decision-Making (21-30)" items={principles.science} />
-              <PrincipleChecklist category="Education & Development (31-40)" items={principles.education} />
-              <PrincipleChecklist category="Social Organization (41-60)" items={principles.social} />
-              
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-lg font-semibold mb-4">Implementation Progress</h3>
-                <ResponsiveContainer width="100%" height={250}>
-                  <BarChart data={[
-                    { category: 'Resources', progress: 72 },
-                    { category: 'Environment', progress: 68 },
-                    { category: 'Science', progress: 81 },
-                    { category: 'Education', progress: 75 },
-                    { category: 'Social', progress: 62 }
-                  ]}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="category" />
-                    <YAxis />
-                    <Tooltip />
-                    <Bar dataKey="progress" fill="#3B82F6" />
-                  </BarChart>
-                </ResponsiveContainer>
+            {/* Progress Overview */}
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h3 className="text-lg font-semibold mb-4">Overall Implementation Progress</h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={categoryProgress}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="category" angle={-45} textAnchor="end" height={120} fontSize={12} />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="implemented" stackId="a" fill="#10B981" />
+                  <Bar dataKey="inProgress" stackId="a" fill="#F59E0B" />
+                  <Bar dataKey="planned" stackId="a" fill="#E5E7EB" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* All 100 Principles */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-gray-800">All 100 Principles by Category</h3>
+              <div className="grid grid-cols-1 gap-4">
+                {Object.entries(allPrinciples).map(([category, principles], idx) => (
+                  <PrincipleCategory 
+                    key={category} 
+                    category={category} 
+                    principles={principles}
+                    progress={categoryProgress[idx]}
+                  />
+                ))}
               </div>
             </div>
 
+            {/* Summary Stats */}
             <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-lg font-semibold mb-4">Global Unity Progress</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
-                  <div className="text-3xl font-bold text-blue-600">156</div>
-                  <div className="text-sm text-gray-600 mt-1">Nations Participating</div>
-                </div>
+              <h3 className="text-lg font-semibold mb-4">Global Implementation Summary</h3>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
-                  <div className="text-3xl font-bold text-green-600">89%</div>
-                  <div className="text-sm text-gray-600 mt-1">Resource Sharing Agreement</div>
+                  <div className="text-3xl font-bold text-green-600">42</div>
+                  <div className="text-sm text-gray-600 mt-1">Principles Implemented</div>
                 </div>
-                <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg">
-                  <div className="text-3xl font-bold text-purple-600">2.1B</div>
-                  <div className="text-sm text-gray-600 mt-1">People Connected</div>
+                <div className="text-center p-4 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-lg">
+                  <div className="text-3xl font-bold text-yellow-600">31</div>
+                  <div className="text-sm text-gray-600 mt-1">In Progress</div>
+                </div>
+                <div className="text-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg">
+                  <div className="text-3xl font-bold text-gray-600">27</div>
+                  <div className="text-sm text-gray-600 mt-1">Planned</div>
+                </div>
+                <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
+                  <div className="text-3xl font-bold text-blue-600">73%</div>
+                  <div className="text-sm text-gray-600 mt-1">Overall Progress</div>
                 </div>
               </div>
             </div>
@@ -568,14 +727,24 @@ function App() {
           <div className="flex justify-between items-center">
             <div>
               <p className="text-sm text-gray-600">
-                Based on The Venus Project principles by Jacque Fresco
+                Based on the 100 principles for a Resource-Based Economy
               </p>
               <p className="text-xs text-gray-500 mt-1">
                 Working towards a sustainable, equitable civilization free from war, poverty, and unnecessary suffering
               </p>
             </div>
-            <div className="text-sm text-gray-500">
-              Last Updated: {new Date().toLocaleString()}
+            <div className="flex items-center space-x-4">
+              <a 
+                href="https://github.com/The-Venus-Project-AI/100-Rules-Jacque-Fresco-Would-Suggest-We-Follow"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-gray-500 hover:text-gray-700"
+              >
+                GitHub Repository
+              </a>
+              <span className="text-sm text-gray-500">
+                Last Updated: {new Date().toLocaleString()}
+              </span>
             </div>
           </div>
         </div>
