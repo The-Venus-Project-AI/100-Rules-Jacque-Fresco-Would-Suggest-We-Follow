@@ -5,6 +5,13 @@ A comprehensive dashboard and management system for a Resource-Based Economy, in
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Available-green.svg)](https://the-venus-project-ai.github.io/100-Rules-Jacque-Fresco-Would-Suggest-We-Follow/)
+
+## 🌐 Live Demo
+
+**👉 [View Live Dashboard](https://the-venus-project-ai.github.io/100-Rules-Jacque-Fresco-Would-Suggest-We-Follow/)**
+
+Experience the RBE Platform dashboard in action - no installation required!
 
 ## 🌍 Vision
 
@@ -33,6 +40,11 @@ This platform embodies Jacque Fresco's vision of a resource-based economy, where
 - Circular economy tracking
 
 ## 🚀 Quick Start
+
+### 🌐 Try It Live (Recommended)
+**👉 [Launch Dashboard](https://the-venus-project-ai.github.io/100-Rules-Jacque-Fresco-Would-Suggest-We-Follow/)**
+
+No installation needed - experience the full dashboard immediately!
 
 ### Prerequisites
 - Node.js 20+
