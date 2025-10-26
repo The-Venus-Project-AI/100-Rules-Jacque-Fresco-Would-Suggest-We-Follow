@@ -91,7 +91,16 @@ This platform embodies Jacque Fresco's vision of a resource-based economy, where
 
 ## 🐳 Deployment
 
-### Docker (Recommended)
+### GitHub Pages (Frontend Only)
+The dashboard frontend can be deployed to GitHub Pages for free hosting:
+
+1. **Automatic Deployment**: Push to `main` branch triggers automatic deployment
+2. **Manual Deployment**: Run `npm run deploy` from the frontend directory
+3. **Access**: `https://yourusername.github.io/100-Rules-Jacque-Fresco-Would-Suggest-We-Follow/`
+
+See [GitHub Pages Deployment Guide](docs/github-pages-deployment.md) for detailed instructions.
+
+### Docker (Full Stack)
 ```bash
 docker compose up --build
 ```
@@ -140,6 +149,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 ## 📚 Documentation
 
 - [Architecture Overview](docs/architecture.md)
+- [GitHub Pages Deployment](docs/github-pages-deployment.md)
 - [Contributing Guide](CONTRIBUTING.md)
 - [Changelog](CHANGELOG.md)
 
