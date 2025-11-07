@@ -1,0 +1,31 @@
+{
+  "app": {
+    "title": "Sistema de Gestión Mundial del Proyecto Venus",
+    "subtitle": "Panel Global de Economía Basada en Recursos"
+  },
+  "tabs": {
+    "overview": "Resumen",
+    "resources": "Recursos",
+    "automation": "Automatización",
+    "social": "Social",
+    "environment": "Medio Ambiente",
+    "principles": "Principios"
+  },
+  "metrics": {
+    "resourceEfficiency": "Eficiencia de Recursos",
+    "renewableEnergy": "Energía Renovable",
+    "globalCooperation": "Cooperación Global",
+    "automationLevel": "Nivel de Automatización",
+    "progress": "Progreso"
+  },
+  "footer": {
+    "description": "Basado en los 100 principios de una Economía Basada en Recursos",
+    "mission": "Trabajando hacia una civilización sostenible y equitativa, libre de guerras, pobreza y sufrimiento innecesario"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "tryAgain": "Intentar de Nuevo",
+    "goHome": "Ir al Inicio"
+  }
+}
