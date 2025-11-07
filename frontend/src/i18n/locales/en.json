@@ -1,0 +1,31 @@
+{
+  "app": {
+    "title": "Venus Project World Management System",
+    "subtitle": "Resource-Based Economy Global Dashboard"
+  },
+  "tabs": {
+    "overview": "Overview",
+    "resources": "Resources",
+    "automation": "Automation",
+    "social": "Social",
+    "environment": "Environment",
+    "principles": "Principles"
+  },
+  "metrics": {
+    "resourceEfficiency": "Resource Efficiency",
+    "renewableEnergy": "Renewable Energy",
+    "globalCooperation": "Global Cooperation",
+    "automationLevel": "Automation Level",
+    "progress": "Progress"
+  },
+  "footer": {
+    "description": "Based on the 100 principles for a Resource-Based Economy",
+    "mission": "Working towards a sustainable, equitable civilization free from war, poverty, and unnecessary suffering"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "tryAgain": "Try Again",
+    "goHome": "Go Home"
+  }
+}
