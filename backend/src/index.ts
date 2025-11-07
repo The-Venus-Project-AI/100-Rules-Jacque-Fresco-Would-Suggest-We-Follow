@@ -10,6 +10,12 @@ import { checkConnection } from './database/connection';
 import healthRoutes from './routes/health';
 import resourcesRoutes from './routes/resources';
 import principlesRoutes from './routes/principles';
+import authRoutes from './routes/auth';
+import cooperationRoutes from './routes/cooperation';
+import automationRoutes from './routes/automation';
+import environmentalRoutes from './routes/environmental';
+import socialRoutes from './routes/social';
+import citiesRoutes from './routes/cities';
 
 dotenv.config();
 
@@ -35,6 +41,7 @@ app.get('/', (req, res) => {
     documentation: '/api/health',
     endpoints: {
       health: '/api/health',
+      auth: '/api/auth',
       resources: '/api/resources',
       principles: '/api/principles',
       cooperation: '/api/cooperation',
@@ -48,16 +55,14 @@ app.get('/', (req, res) => {
 
 // API Routes
 app.use('/api/health', healthRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/resources', resourcesRoutes);
 app.use('/api/principles', principlesRoutes);
-
-// Additional routes can be added here:
-// app.use('/api/cooperation', cooperationRoutes);
-// app.use('/api/automation', automationRoutes);
-// app.use('/api/environmental', environmentalRoutes);
-// app.use('/api/social', socialRoutes);
-// app.use('/api/cities', circularCitiesRoutes);
-// app.use('/api/auth', authRoutes);
+app.use('/api/cooperation', cooperationRoutes);
+app.use('/api/automation', automationRoutes);
+app.use('/api/environmental', environmentalRoutes);
+app.use('/api/social', socialRoutes);
+app.use('/api/cities', citiesRoutes);
 
 // Error handlers (must be last)
 app.use(notFoundHandler);
