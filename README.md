@@ -84,6 +84,32 @@ No installation needed - experience the full dashboard immediately!
    npm run dev
    ```
 
+## 📋 Development Methodology
+
+### Spec-Driven Development
+
+This project follows **Spec-Driven Development** - a rigorous, scientific approach where we think before we code. Every feature starts with comprehensive specifications that ensure quality, maintainability, and alignment with RBE principles.
+
+**📚 [Read the Complete Spec Kit Documentation](.speckit/README.md)**
+
+#### Quick Links
+- **[RBE Platform Constitution](.speckit/constitution/RBE_PLATFORM_CONSTITUTION.md)** - Our governing principles
+- **[Development Workflow](.speckit/WORKFLOW.md)** - Step-by-step process guide
+- **[Feature Spec Template](.speckit/templates/FEATURE_SPEC_TEMPLATE.md)** - For new features
+- **[Technical Plan Template](.speckit/templates/TECHNICAL_PLAN_TEMPLATE.md)** - For implementation
+- **[Example Specification](.speckit/examples/FEATURE_SPEC_AI_RESOURCE_OPTIMIZATION.md)** - See it in action
+
+#### Why Spec-Driven?
+- ✅ **Better Design**: Think through edge cases and alternatives upfront
+- ✅ **Clear Communication**: Everyone knows what's being built
+- ✅ **Easier Onboarding**: New contributors read specs to understand features
+- ✅ **Higher Quality**: Testing, security, and accessibility built in from day one
+- ✅ **RBE Aligned**: Ensures every feature serves humanity's best interests
+
+**New contributors:** Start by reading our [Workflow Guide](.speckit/WORKFLOW.md)!
+
+---
+
 ## 🏗️ Architecture
 
 ```
@@ -95,10 +121,11 @@ No installation needed - experience the full dashboard immediately!
 ```
 
 ### Technology Stack
-- **Frontend**: React + TypeScript + Vite + Tailwind CSS
-- **Backend**: Node.js + Express + TypeScript
-- **Database**: PostgreSQL
+- **Frontend**: React + TypeScript + Vite + Tailwind CSS + Zustand
+- **Backend**: Node.js + Express + TypeScript + Zod + JWT
+- **Database**: PostgreSQL 16
 - **Charts**: Recharts
+- **Testing**: Vitest + React Testing Library
 - **Deployment**: Docker + Nginx
 
 ## 🐳 Deployment
@@ -160,10 +187,26 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ## 📚 Documentation
 
+### For Developers
+- **[Developer Guide](DEVELOPER_GUIDE.md)** - Complete development manual
+- **[Code Review & 30-Year Roadmap](CODE_REVIEW_AND_ROADMAP.md)** - Architecture review and long-term vision
+- **[Implementation Summary](IMPLEMENTATION_SUMMARY.md)** - Phase 1 details
+- **[Final Build Summary](FINAL_BUILD_SUMMARY.md)** - Complete feature list
+
+### Spec-Driven Development
+- **[Spec Kit Documentation](.speckit/README.md)** - Complete methodology guide
+- **[RBE Platform Constitution](.speckit/constitution/RBE_PLATFORM_CONSTITUTION.md)** - Governing principles
+- **[Development Workflow](.speckit/WORKFLOW.md)** - Step-by-step process
+- **[Feature Spec Template](.speckit/templates/FEATURE_SPEC_TEMPLATE.md)** - For specifications
+- **[Technical Plan Template](.speckit/templates/TECHNICAL_PLAN_TEMPLATE.md)** - For implementation plans
+- **[Task Breakdown Template](.speckit/templates/TASK_BREAKDOWN_TEMPLATE.md)** - For task organization
+
+### Deployment & Contributing
 - [Architecture Overview](docs/architecture.md)
 - [GitHub Pages Deployment](docs/github-pages-deployment.md)
 - [Contributing Guide](CONTRIBUTING.md)
 - [Changelog](CHANGELOG.md)
+- [Security Policy](SECURITY.md)
 
 ## 🌟 Philosophy
 
